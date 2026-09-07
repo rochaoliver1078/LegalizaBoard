@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Google Sans Text", "Roboto", "Inter", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Design tokens — Material skin (LegalizaBoard-style) */
+:root {
+  /* Marca */
+  --primary: #d93025;
+  --primary-dark: #b31412;
+  --primary-wash: #FCE8E6;
+  --red: #DC2626; /* vermelho semântico de perigo, distinto da marca */
+
+  /* Status semântico */
+  --yellow: #D97706;
+  --yellow-wash: #FEF3C7;
+  --green: #16A34A;
+  --green-wash: #F0FDF4;
+  --amber: #EA580C;
+  --amber-wash: #FFEDD5;
+
+  /* Superfícies */
+  --bg: #F6F8FC;
+  --surface: #FFFFFF;
+  --surface-2: #F1F3F4;
+  --surface-hover: #E8EAED;
+  --border: #DADCE0;
+  --text: #202124;
+  --text-2: #5F6368;
+  --text-3: #80868B;
+
+  /* Sombras (elevação Material) */
+  --shadow-1: 0 1px 2px rgba(60,64,67,.15), 0 1px 3px 1px rgba(60,64,67,.08);
+  --shadow-2: 0 4px 8px 3px rgba(60,64,67,.10), 0 1px 3px rgba(60,64,67,.20);
+  --shadow-3: 0 8px 24px rgba(60,64,67,.20);
+
+  /* Raios */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 999px;
+
+  /* Aliases legados (mantidos para compatibilidade durante a transição) */
+  --paper: var(--bg);
+  --paper-raised: var(--surface);
+  --ink: var(--text);
+  --ink-soft: var(--text-2);
+  --stone: var(--text-2);
+  --stone-light: var(--text-3);
+  --line: var(--border);
+  --line-strong: var(--border);
+  --red-color: var(--primary);
+  --red-deep: var(--primary-dark);
+  --red-wash: var(--primary-wash);
+  --gold-color: var(--yellow);
+  --gold-wash: var(--yellow-wash);
+  --green-color: var(--green);
+  --amber-color: var(--amber);
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+}
+
+/* Styling for scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--stone-light);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Barra de progresso dos toasts (esvazia da direita p/ a esquerda) */
+@keyframes toastbar {
+  from { width: 100%; }
+  to   { width: 0%; }
+}
+
+/* Pulso suave para os esqueletos de carregamento */
+@keyframes skeletonPulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.45; }
+}
+.animate-skeleton {
+  animation: skeletonPulse 1.4s ease-in-out infinite;
+}
+
+@keyframes slideInPanel {
+  from { transform: translateX(24px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+@keyframes toastIn {
+  from { transform: translate(-50%, 16px); opacity: 0; }
+  to   { transform: translate(-50%, 0); opacity: 1; }
+}
+
+/* ---------------------------------------------------------------- */
+/* Componentes compartilhados — sistema visual Material             */
+/* ---------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  transition: background .15s, box-shadow .15s;
+  cursor: pointer;
+}
+.btn-primary { background: var(--primary); color: #fff; box-shadow: var(--shadow-1); }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-secondary { background: var(--surface-2); color: var(--text-2); border: 1px solid var(--border); }
+.btn-secondary:hover { background: var(--surface-hover); }
+.btn-ghost { background: transparent; color: var(--text-2); }
+.btn-ghost:hover { background: var(--surface-hover); }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-danger:hover { background: #B91C1C; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-1); }
+.card-flat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); }
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+}
+.badge-neutral { background: var(--surface-2); color: var(--text-2); }
+.badge-danger  { background: var(--primary-wash); color: var(--primary); }
+.badge-warning { background: var(--amber-wash); color: var(--amber); }
+.badge-success { background: var(--green-wash); color: var(--green); }
+
+.field-input {
+  width: 100%;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: 13px;
+  color: var(--text);
+  outline: none;
+  transition: border-color .15s, box-shadow .15s;
+}
+.field-input:focus {
+  border-color: var(--primary);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+.field-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-3);
+}
+
+.segmented {
+  display: inline-flex;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 2px;
+}
+.segmented-item {
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: calc(var(--radius-md) - 2px);
+  color: var(--text-2);
+  transition: background .15s, color .15s;
+  cursor: pointer;
+}
+.segmented-item.active { background: var(--surface); color: var(--text); box-shadow: var(--shadow-1); }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 40; }
+.modal-shell { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow-3); }
+
+.panel-shell { background: var(--surface); box-shadow: var(--shadow-3); animation: slideInPanel .25s ease; }
+
+
+/* ---------------------------------------------------------------- */
+/* Sistema visual LegalizaBoard — topbar, sidebar, kanban            */
+/* ---------------------------------------------------------------- */
+
+.icon-btn {
+  width: 40px; height: 40px;
+  display: inline-flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+  color: var(--text-2);
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+.icon-btn:hover { background: var(--surface-hover); }
+.icon-btn svg { width: 22px; height: 22px; }
+.icon-btn.danger-hover:hover { background: var(--primary-wash); color: var(--primary); }
+
+.avatar {
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: 15px;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.dropdown {
+  position: absolute;
+  min-width: 220px;
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-3);
+  padding: 6px;
+  z-index: 60;
+}
+.dropdown-item {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 13px; font-weight: 500;
+  color: var(--text);
+  text-align: left;
+  transition: background 0.15s;
+}
+.dropdown-item:hover { background: var(--surface-hover); }
+.dropdown-item svg { width: 18px; height: 18px; color: var(--text-2); flex-shrink: 0; }
+
+.search-wrap {
+  display: flex; align-items: center;
+  background: var(--surface-2);
+  border-radius: var(--radius-pill);
+  padding: 0 8px 0 16px;
+  height: 40px;
+  transition: box-shadow 0.2s, background 0.2s;
+}
+.search-wrap:focus-within { background: var(--surface); box-shadow: var(--shadow-1); }
+.search-wrap svg { width: 18px; height: 18px; color: var(--text-2); flex-shrink: 0; }
+.search-wrap input {
+  flex: 1; border: none; outline: none; background: transparent;
+  font-size: 13px; padding: 0 10px; min-width: 0; color: var(--text);
+}
+
+/* Nav lateral em pill, no padrão board-nav */
+.nav-pill {
+  display: flex; align-items: center; gap: 12px;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: var(--radius-pill);
+  font-size: 14px; font-weight: 500;
+  color: var(--text-2);
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
+}
+.nav-pill:hover { background: var(--surface-hover); }
+.nav-pill.active { background: var(--primary-wash); color: var(--primary-dark); font-weight: 600; }
+.nav-pill .nav-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--primary); flex-shrink: 0;
+}
+.nav-pill .nav-count {
+  margin-left: auto;
+  font-size: 11px; font-weight: 600;
+  color: var(--text-3);
+  background: var(--surface-2);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+}
+.nav-pill.active .nav-count { background: rgba(217, 48, 37, 0.18); color: inherit; }
+
+.chip-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+  font-size: 13px; font-weight: 600;
+  color: var(--text-2);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.chip-btn:hover { background: var(--surface-hover); }
+.chip-btn svg { width: 16px; height: 16px; }
+
+/* Kanban no padrão list / task-card */
+.kanban-list {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-1);
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s;
+}
+.kanban-list.drag-over { box-shadow: 0 0 0 2px var(--primary), var(--shadow-2); }
+
+.kanban-list-header {
+  display: flex; align-items: center; gap: 8px;
+  padding: 16px 14px 10px 18px;
+}
+.kanban-list-title { flex: 1; font-size: 15px; font-weight: 700; color: var(--text); }
+.kanban-list-count {
+  font-size: 11px; font-weight: 600;
+  color: var(--text-3);
+  background: var(--surface-2);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  flex-shrink: 0;
+}
+
+.kanban-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.15s, opacity 0.2s;
+}
+.kanban-card:hover { box-shadow: var(--shadow-2); border-color: transparent; }
+.kanban-card.dragging { opacity: 0.5; transform: rotate(1.5deg); }
+.kanban-card .color-bar {
+  position: absolute; left: 0; top: 0; bottom: 0; width: 4px;
+}
