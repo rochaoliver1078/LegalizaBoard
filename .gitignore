@@ -8,3 +8,5 @@ coverage/
 !.env.example
 node_modules_broken_*/
 .vercel
+legalizaboard-ref/
+legalizaboard (1).zip

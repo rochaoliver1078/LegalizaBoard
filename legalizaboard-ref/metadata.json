@@ -1,6 +1,0 @@
-{
-  "name": "LegalizaBoard",
-  "description": "Quadro de tarefas e gerenciador de projetos estilo Kanban com suporte a quadros, listas, etiquetas, datas, subtarefas e anexos.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
