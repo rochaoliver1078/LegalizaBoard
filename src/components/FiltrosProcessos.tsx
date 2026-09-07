@@ -7,8 +7,8 @@ interface FiltrosProcessosProps {
   tiposProcesso: TiposProcessoMap;
   filtroTipo: string;
   onChangeFiltroTipo: (tipo: string) => void;
-  view: 'kanban' | 'tabela';
-  onChangeView: (view: 'kanban' | 'tabela') => void;
+  view: 'lista' | 'tabela';
+  onChangeView: (view: 'lista' | 'tabela') => void;
 }
 
 /** Chips de categoria + alternador Kanban/Tabela do diretório de processos. */
@@ -39,10 +39,10 @@ export const FiltrosProcessos: React.FC<FiltrosProcessosProps> = ({
 
     <div className="flex bg-[var(--border)]/40 border border-[var(--border)] rounded-xl p-0.5 ml-auto text-xs font-semibold">
       <button
-        onClick={() => onChangeView('kanban')}
-        className={`px-3 py-1.5 rounded-lg transition-all ${view === 'kanban' ? 'bg-[var(--surface)] text-[var(--text)] shadow-sm' : 'text-[var(--text-3)] hover:text-[var(--text)]'}`}
+        onClick={() => onChangeView('lista')}
+        className={`px-3 py-1.5 rounded-lg transition-all ${view === 'lista' ? 'bg-[var(--surface)] text-[var(--text)] shadow-sm' : 'text-[var(--text-3)] hover:text-[var(--text)]'}`}
       >
-        Quadro Kanban
+        Lista por Etapa
       </button>
       <button
         onClick={() => onChangeView('tabela')}

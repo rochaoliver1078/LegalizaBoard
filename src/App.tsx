@@ -14,7 +14,7 @@ import { GestorTarefas } from './components/tarefas/GestorTarefas';
 import { HeaderBar } from './components/HeaderBar';
 import { AlertasPanel } from './components/AlertasPanel';
 import { AlarmesView } from './components/AlarmesView';
-import { KanbanBoard } from './components/KanbanBoard';
+import { ProcessoListView } from './components/ProcessoListView';
 import { TabelaProcessos } from './components/TabelaProcessos';
 import { NovoProcessoModal } from './components/NovoProcessoModal';
 import { RelatorioView } from './components/RelatorioView';
@@ -33,7 +33,7 @@ export default function App() {
   const [abaAtiva, setAbaAtiva] = useState<string>('painel');
   const [filtroTipo, setFiltroTipo] = useState<string>('todos');
   const [filtroBusca, setFiltroBusca] = useState<string>('');
-  const [view, setView] = useState<'kanban' | 'tabela'>('kanban');
+  const [view, setView] = useState<'lista' | 'tabela'>('lista');
   const [drawerProcessoId, setDrawerProcessoId] = useState<string | null>(null);
   const [viewTarefas, setViewTarefas] = useState(false);
   const [showConsentCenter, setShowConsentCenter] = useState(false);
@@ -358,13 +358,12 @@ export default function App() {
                     )}
                   </div>
                 )
-              ) : view === 'kanban' ? (
-                <KanbanBoard
+              ) : view === 'lista' ? (
+                <ProcessoListView
                   processos={filteredProcessos}
                   tiposProcesso={config.tiposProcesso}
                   tarefas={tarefas}
                   onOpenProcesso={handleOpenProcesso}
-                  onMoverParaColuna={procs.executeDropToColumn}
                 />
               ) : (
                 <TabelaProcessos

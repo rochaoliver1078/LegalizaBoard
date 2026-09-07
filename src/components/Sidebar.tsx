@@ -113,7 +113,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   return (
-    <aside className="sidebar h-full w-full flex flex-col justify-between bg-[var(--bg)] text-[var(--text-2)] select-none border-r border-[var(--border)] font-sans transition-all duration-300">
+    <aside className="sidebar h-full w-full flex flex-col justify-between bg-[var(--bg)] text-[var(--text-2)] select-none font-sans transition-all duration-300">
       <div className="flex-1 overflow-y-auto">
         {/* Brand */}
         <div className={`p-4 border-b border-[var(--border)] mb-5 flex ${minimizada ? 'flex-col items-center justify-center gap-3' : 'items-center justify-between gap-2'}`}>

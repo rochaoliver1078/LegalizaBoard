@@ -47,7 +47,7 @@ export const HeaderBar: React.FC<HeaderBarProps> = ({
     : null;
 
   return (
-    <header className="topbar bg-[var(--bg)] border-b border-[var(--border)] !h-auto !py-4 !px-6 flex-shrink-0 select-none">
+    <header className="topbar bg-[var(--bg)] !h-auto !py-4 !px-6 flex-shrink-0 select-none">
       <div className="topbar-left min-w-0">
         <button
           onClick={onOpenMobileSidebar}
